@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    properties文件引入-->
+    <properties resource="jdbc.properties"/>
+    <!--
+        typeAliases：设置类型别名，即为某个具体的类型设置一个别名
+        在MyBatis的范围中，就可以使用别名表示一个具体的类型
+    -->
+    <typeAliases>
+        <!--
+            type：设置需要起别名的类型
+            alias：设置某个类型的别名
+        -->
+        <!--<typeAlias type="com.atguigu.mybatis.pojo.User" alias="abc"></typeAlias>-->
+        <!--若不设置alias，当前的类型拥有默认的别名，即类名且不区分大小写-->
+        <!--<typeAlias type="com.atguigu.mybatis.pojo.User"></typeAlias>-->
+        <!--通过包设置类型别名，指定包下所有的类型将全部拥有默认的别名，即类名且不区分大小写-->
+        <package name="com.atguigu.mybatis.pojo"/>
+    </typeAliases>
+
+    <!--设置连接数据库的环境-->
+    <environments default="development">
+<!--        id 与上方的default相对应，唯一标识-->
+        <environment id="development">
+<!--            transctionManager：设置事务管理器
+                属性：
+                type:设置事务管理的方式
+                JDBC使用jdbc中的原生的事务管理方式
+                MANAGED:被管理，例如spring-->
+            <transactionManager type="JDBC"/>
+            <!--dataSource:数据源
+                type:设置数据源的类型
+                pooled表示使用数据库连接池
+                unpooled表示不适用数据库连接池
+                JNDI:表示使用上下文中的数据源-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+        <environment id="test">
+            <!--            transctionManager：设置事务管理器
+                            属性：
+                            type:设置事务管理的方式
+                            JDBC使用jdbc中的原生的事务管理方式
+                            MANAGED:被管理，例如spring-->
+            <transactionManager type="JDBC"/>
+            <!--dataSource:数据源
+                type:设置数据源的类型
+                pooled表示使用数据库连接池
+                unpooled表示不适用数据库连接池
+                JNDI:表示使用上下文中的数据源-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/ssm?serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--引入mybatis映射文件-->
+    <mappers>
+        <mapper resource="mappers/UserMapper.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UserMapper">
+    <!--int insertUser();-->
+<!-- mapper接口的全类名合映射文件的namespace保持一致
+    mapper接口中的方法的方法明要和映射文件的SQL的ID保持一致
+写入SQL语句-->
+    <insert id="insertUser">
+        insert into t_user values(null,'admin1','123456',23,'男','12345@qq.com')
+    </insert>
+<!--    void updateUser()-->
+    <update id="updateUser">
+        update t_user set username='root' ,password='123' where id= 3
+    </update>
+<!--    void deleteUser()-->
+    <delete id="deleteUser">
+        delete from t_user where id=3;
+    </delete>
+<!--    User getUserById
+resultType :结果类型，及查询数据要转换为的java类型
+resultMap：自定义映射，对立一对一或一对多的映射关系-->
+    <select id="getUserById" resultType="T1.User.User">
+        select  * from t_user where id =2
+    </select>
+<!--     List<User> getAllUser();-->
+    <select id="getAllUser" resultType="T1.User.User">
+        select  * from t_user
+    </select>
+</mapper>
